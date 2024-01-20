@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": 2,
+      "firstName": "Mohit",
+      "lastName": "Tarate",
+      "address": "Nashik",
+      "email": "moheetarate@gmail.com",
+      "phone": "7709225561"
+    },
+    {
+      "id": 3,
+      "firstName": "Mohit",
+      "lastName": "Tarate",
+      "address": "Nashik",
+      "email": "moheetarate@gmail.com",
+      "phone": "7709225561"
+    }
+  ]
+}

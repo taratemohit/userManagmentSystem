@@ -1,0 +1,30 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>User Managent System</h1>
+        <button class="btn btn-primary mb-3"  (click)="onAddUser()">Add User</button>
+    </div>
+   
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of userList">
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+                <td>
+                    <button class="btn btn-warning" (click)="onEdit(user)">Edit</button>&nbsp;
+                    <button class="btn btn-danger" (click)="onDelete(user)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

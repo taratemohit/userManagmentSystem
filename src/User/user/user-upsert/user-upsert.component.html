@@ -1,0 +1,42 @@
+<div class="container mt-4">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" formControlName="firstName" required>
+        </div>
+
+        <div *ngIf="userAlreadyExists" class="alert alert-danger" role="alert">
+            User already exists  
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" formControlName="lastName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" formControlName="address">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email" required>
+            <small *ngIf="userForm.get('email')!.hasError('email') && userForm.get('email')!.touched"
+                class="text-danger">
+                Please enter a valid email address.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" id="phone" formControlName="phone" pattern="^\d{10}$" required>
+            <small *ngIf="userForm.get('phone')!.hasError('pattern') && userForm.get('phone')!.touched"
+                class="text-danger">
+                Please enter a 10-digit phone number.
+            </small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
