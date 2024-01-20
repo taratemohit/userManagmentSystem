@@ -1,17 +1,26 @@
 <div class="container mt-4">
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <!-- Error Message for Existing User -->
+        <div *ngIf="userAlreadyExists" class="alert alert-danger" role="alert">
+            User already exists
+        </div>
+        
         <div class="form-group">
             <label for="firstName">First Name</label>
             <input type="text" class="form-control" id="firstName" formControlName="firstName" required>
-        </div>
-
-        <div *ngIf="userAlreadyExists" class="alert alert-danger" role="alert">
-            User already exists  
+            <div *ngIf="userForm.get('firstName')!.hasError('required') && userForm.get('firstName')!.touched"
+                class="text-danger">
+                First Name is required.
+            </div>
         </div>
 
         <div class="form-group">
             <label for="lastName">Last Name</label>
             <input type="text" class="form-control" id="lastName" formControlName="lastName" required>
+            <div *ngIf="userForm.get('lastName')!.hasError('required') && userForm.get('lastName')!.touched"
+                class="text-danger">
+                Last Name is required.
+            </div>
         </div>
 
         <div class="form-group">
@@ -26,17 +35,25 @@
                 class="text-danger">
                 Please enter a valid email address.
             </small>
+            <div *ngIf="userForm.get('email')!.hasError('required') && userForm.get('email')!.touched"
+                class="text-danger">
+                Email is required.
+            </div>
         </div>
 
         <div class="form-group">
             <label for="phone">Phone</label>
-            <input type="text" class="form-control" id="phone" formControlName="phone" pattern="^\d{10}$" required>
+            <input type="number" class="form-control" id="phone" formControlName="phone" pattern="^\d{10}$" required>
             <small *ngIf="userForm.get('phone')!.hasError('pattern') && userForm.get('phone')!.touched"
                 class="text-danger">
                 Please enter a 10-digit phone number.
             </small>
+            <div *ngIf="userForm.get('phone')!.hasError('required') && userForm.get('phone')!.touched"
+                class="text-danger">
+                Phone is required.
+            </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid || formSubmitted">Save</button>
     </form>
 </div>

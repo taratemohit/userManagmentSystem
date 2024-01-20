@@ -13,12 +13,13 @@ export class UserUpsertComponent implements OnInit {
   userForm: FormGroup;
   selectedUser: any; // Add this property to store the selected user
   userAlreadyExists = false; // Flag to track whether the user already exists
+  formSubmitted = false; // Track whether the form is submitted
 
   constructor(private fb: FormBuilder, private dataService: DataServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.initializeForm();
-  
+
     // Subscribe to selectedUser changes
     this.dataService.selectedUser$.subscribe((user) => {
       this.selectedUser = user;
@@ -45,14 +46,14 @@ export class UserUpsertComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  onSubmit(): void { 
     if (this.userForm.valid) {
       const user = this.userForm.value;
 
       // Check if the user with the same email already exists
-      if (this.isEmailAlreadyExists(user)) {
+      if (this.isUserAlreadyExists(user)) {
         this.userAlreadyExists = true;
-        return; // Stop further processing
+        return;
       } else {
         this.userAlreadyExists = false; // Clear the error message if email doesn't exist
       }
@@ -69,13 +70,11 @@ export class UserUpsertComponent implements OnInit {
         this.router.navigate(['/users']);
 
       });
+    } else {
+      // Form is not valid, show a general error message or perform other actions
+      window.alert('Please fill out the form completely.')
+       
     }
-  }
-
-
-  isEmailAlreadyExists(email: string): boolean {
-    const existingUsers = this.dataService.getUsersFromLocal();
-    return existingUsers.some((user) => user.email === email && user.id !== this.selectedUser?.id);
   }
 
   isUserAlreadyExists(newUser: any): boolean {
@@ -97,5 +96,6 @@ export class UserUpsertComponent implements OnInit {
 
   clearErrorMessage(): void {
     this.userAlreadyExists = false;
+    this.formSubmitted = false;
   }
 }

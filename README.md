@@ -21,7 +21,7 @@ Ensure you have the following tools installed on your machine:
 1. Clone the repository:
 
      
-    git clone <repository-url>
+    git clone https://github.com/taratemohit/userManagmentSystem.git
     cd user-management-system
     
 

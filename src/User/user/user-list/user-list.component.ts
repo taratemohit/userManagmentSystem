@@ -14,28 +14,30 @@ export class UserListComponent implements OnInit {
   constructor(private dataService: DataServiceService, private router: Router) { }
 
   ngOnInit(): void {
-    // // Fetch user list from DataService
-    // this.userList = []; // Replace with actual implementation
     this.fetchUserList();
   }
 
+  //Add User
   onAddUser(): void {
     this.dataService.setSelectedUser(null); // Set selected user to null for adding a new user
     this.router.navigate(['/user-upsert']); // Navigate to UserUpsertComponent for adding
   }
 
+  //Get User List
   fetchUserList(): void {
     this.dataService.getUsers().subscribe((users) => {
       this.userList = users;
     });
   }
 
+  //Edit User
   onEdit(user: any): void {
     // Send user details to User-Upsert Component
     this.dataService.setSelectedUser(user);
     this.router.navigate(['/user-upsert', user.id]); // Navigate to UserUpsertComponent with id parameter
   }
 
+  //Delete User
   onDelete(user: any): void {
     if (confirm('Are you sure you want to delete this user?')) {
       this.dataService.deleteUser(user.id).subscribe(() => {
